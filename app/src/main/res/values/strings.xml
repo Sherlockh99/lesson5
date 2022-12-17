@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">lesson5</string>
+    <string name="your_name">Your name</string>
+    <string name="greetings">Greetings</string>
+    <string name="account">Account</string>
+    <string name="say_hello">Hello,\u0020</string>
+</resources>
