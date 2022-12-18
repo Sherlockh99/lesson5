@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements Constants{
     private EditText txtName;
     private Account account;
+    private static final int REQUEST_CODE_SETTING_ACTIVITY = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +43,27 @@ public class MainActivity extends AppCompatActivity implements Constants{
                 // Передача данных через интент
                 runSettings.putExtra(YOUR_ACCOUNT, account);
                 // Метод стартует активити, указанную в интенте
-                startActivity(runSettings);
+                startActivityForResult(runSettings,REQUEST_CODE_SETTING_ACTIVITY);
             }
         });
     }
 
     private void populateAccount() {
         account.setName(txtName.getText().toString());
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode != REQUEST_CODE_SETTING_ACTIVITY) {
+            super.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+        if (resultCode == RESULT_OK){
+            account = data.getParcelableExtra(YOUR_ACCOUNT);
+            populateView();
+        }
+    }
+    private void populateView(){
+        txtName.setText(account.getName());
     }
 }
